@@ -22,7 +22,7 @@ r_max=20.0
 N_step=10000
 L=0
 Conf_in=0
-Conf_fi=699
+Conf_fi=13
 it_in=7
 it_fi=9
 ./Prog/numerov_bound.x $mass $omega $E_min $E_max $E_step $r_min $r_max $N_step $L $Conf_in $Conf_fi $it_in $it_fi

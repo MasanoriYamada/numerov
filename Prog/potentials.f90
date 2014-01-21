@@ -9,18 +9,19 @@ module potentials
 
   use params
   implicit none
-
+  
+  integer f_type
   ! parameters for the potential
   real*8 mass
   real*8 omega
-real*8  pa
-real*8  pb
-real*8  pc
-real*8  pd
-real*8  pe
-real*8  pf
-real*8  pg
-real*8  ph
+  real*8  pa
+  real*8  pb
+  real*8  pc
+  real*8  pd
+  real*8  pe
+  real*8  pf
+  real*8  pg
+  real*8  ph
 
 contains
 
@@ -142,19 +143,25 @@ end function potential_1g1y
 real*8 function potential ( r )
   implicit none
   real*8,     intent(in) :: r
+  !integer f_type
   
  ! potential = potential_well(r)
  ! potential = potential_HO(r)
  ! potential = potential_free(r)
  ! potential = potential_4g(r)
  ! potential = potential_3g(r)
- ! potential = potential_1g1yy(r)
-  potential = potential_1g1y(r)
-  
-  !write(*,*),r,'  ',potential
-  
-end function potential
 
+
+  if (1 .eq. f_type .or. 2.eq. f_type) then
+     potential = potential_1g1y(r)
+  else if (3 .eq. f_type .or. 4.eq. f_type) then
+     potential = potential_1g1yy(r)
+  else
+     write(*,*), 'error potential f_type =', F_type
+  end if
+  !write(*,*),r,'  ',potential
+
+end function potential
 !----------------------------------------------------------
 
   real*8 function sub_F (L, r, E)
@@ -176,6 +183,8 @@ subroutine set_pot &
   implicit none
 integer,    intent(in) :: iconf
 integer,    intent(in) :: it
+
+
 real*8  tmp
 
 read (1,*) tmp, pa, tmp, pb, tmp,  pc, tmp,  pd, tmp, pe, tmp, pf!, pg, ph
