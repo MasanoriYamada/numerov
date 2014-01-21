@@ -1,0 +1,1 @@
+plot "energy9.dat" w e , "energy8.dat" w e , "energy7.dat" w e
